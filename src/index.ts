@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { type Request, type Response } from 'express'
 import z from "zod"
 import bcrypt from 'bcrypt'
 import { ContentModel, LinkModel, UserModel } from './db.js'
@@ -18,7 +18,7 @@ app.use(cors({
   credentials: true,
 }));
 
-app.post("/api/v1/signup",async (req, res)=> {
+app.post("/api/v1/signup",async (req: Request, res:Response)=> {
   const requiredBody = z.object({
     username: z.string(),
     password: z.string().min(7).max(14)
@@ -60,7 +60,7 @@ app.post("/api/v1/signup",async (req, res)=> {
 
 })
 
-app.post("/api/v1/signin",async (req, res)=>{
+app.post("/api/v1/signin",async (req: Request, res:Response)=>{
   const {username, password} = req.body
 
   const response = await UserModel.findOne({
@@ -91,24 +91,24 @@ app.post("/api/v1/signin",async (req, res)=>{
 
 })
 
-app.post("/api/v1/content",auth,async (req, res) => {
-  const link = req.body.link
-  const type = req.body.type
+  app.post("/api/v1/content",auth,async (req: Request, res:Response) => {
+    const link = req.body.link
+    const type = req.body.type
 
-  ContentModel.create({
-    link,
-    type,
-    title: req.body.title,
-    userId:req.userId,
-    tags: []
+    ContentModel.create({
+      link,
+      type,
+      title: req.body.title,
+      userId:req.userId,
+      tags: []
+    })
+
+    res.json({
+      msg:"content added"
+    })
   })
 
-  res.json({
-    msg:"content added"
-  })
-})
-
-app.get("/api/v1/content",auth,async (req, res) => {
+app.get("/api/v1/content",auth,async (req: Request, res:Response) => {
   const userId = req.userId
   const content = await ContentModel.find({
     userId:userId
@@ -119,7 +119,7 @@ app.get("/api/v1/content",auth,async (req, res) => {
   })
 })
 
-app.delete("/api/v1/content",auth,async (req, res) => {
+app.delete("/api/v1/content",auth,async (req: Request, res:Response) => {
   const contentId = req.body.contentId
   await ContentModel.deleteOne({
     contentId,
@@ -131,7 +131,7 @@ app.delete("/api/v1/content",auth,async (req, res) => {
   })
 })
 
-app.post("/api/v1/brain/share",auth,async (req,res)=>{
+app.post("/api/v1/brain/share",auth,async (req: Request, res:Response)=>{
   const share = req.body.share
   if (share) {
 
@@ -166,7 +166,7 @@ app.post("/api/v1/brain/share",auth,async (req,res)=>{
   }
 })
 
-app.get("/api/v1/brain/:shareLink",async (req,res)=>{
+app.get("/api/v1/brain/:shareLink",async (req: Request, res:Response)=>{
   const hash = req.params.shareLink
 
   const link = await LinkModel.findOne({
