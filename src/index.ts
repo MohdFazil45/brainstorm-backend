@@ -4,19 +4,26 @@ import bcrypt from 'bcrypt'
 import { ContentModel, LinkModel, UserModel } from './db.js'
 import  jwt  from 'jsonwebtoken'
 import { auth } from './middleware.js'
-import { JWT_SECRET } from './config.js'
+import dotenv from "dotenv";
+dotenv.config();
 import { random } from './hashing.js'
 import cors from "cors"
+
+const JWT_SECRET = process.env.JWT_SECRET || "SECret";
+const PORT = process.env.PORT ? Number(process.env.PORT) : 3000;
 
 
 const app = express()
 
 app.use(express.json())
+
 app.use(cors({
   origin: "https://fazil-brainstorm.netlify.app",
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   credentials: true,
 }));
+
+
 
 app.post("/api/v1/signup",async (req: Request, res:Response)=> {
   const requiredBody = z.object({
@@ -201,4 +208,4 @@ app.get("/api/v1/brain/:shareLink",async (req: Request, res:Response)=>{
   })
 
 })
-app.listen(3000)
+app.listen(PORT)

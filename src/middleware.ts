@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from "express"
 import jwt from "jsonwebtoken"
-import { JWT_SECRET } from "./config.js"
+const JWT_SECRET = process.env.JWT_SECRET || "SECret";
 
 export function auth(req: Request, res:Response, next:NextFunction){
     const token = req.headers["authorization"]

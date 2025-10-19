@@ -1,6 +1,19 @@
 import mongoose, { model, Schema } from "mongoose";
+import dotenv from "dotenv";
+dotenv.config();
 
-mongoose.connect("mongodb+srv://Fazilop:Bi4wPWjiyk54g2Uq@cluster0.yw9inxs.mongodb.net/brainstorm")
+const MONGO_URL = process.env.MONGO_URL || "";
+
+if (!MONGO_URL) {
+  console.error("❌ MONGO_URL not found in environment variables!");
+  process.exit(1);
+}
+
+mongoose
+  .connect(MONGO_URL)
+  .then(() => console.log("✅ Connected to MongoDB"))
+  .catch((err) => console.error("❌ MongoDB connection failed:", err));
+
 
 const UserSchema = new Schema({
     username: {type: String, unique:true},
