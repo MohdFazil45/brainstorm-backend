@@ -13,7 +13,7 @@ const app = express()
 
 app.use(express.json())
 app.use(cors({
-  origin: "https://your-frontend.netlify.app", // Replace with your Netlify URL
+  origin: "https://fazil-brainstorm.netlify.app",
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   credentials: true,
 }));
