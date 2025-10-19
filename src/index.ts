@@ -12,6 +12,12 @@ import cors from "cors"
 const JWT_SECRET = process.env.JWT_SECRET || "SECret";
 const PORT = process.env.PORT ? Number(process.env.PORT) : 3000;
 
+console.log("Starting server...");
+console.log("PORT:", process.env.PORT);
+console.log("MONGO_URL:", process.env.MONGO_URL ? "OK" : "MISSING");
+console.log("JWT_SECRET:", process.env.JWT_SECRET ? "OK" : "MISSING");
+
+
 
 const app = express()
 
@@ -102,7 +108,7 @@ app.post("/api/v1/signin",async (req: Request, res:Response)=>{
     const link = req.body.link
     const type = req.body.type
 
-    ContentModel.create({
+    await ContentModel.create({
       link,
       type,
       title: req.body.title,
