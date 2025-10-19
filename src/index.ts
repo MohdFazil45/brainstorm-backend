@@ -122,7 +122,7 @@ app.get("/api/v1/content",auth,async (req: Request, res:Response) => {
 app.delete("/api/v1/content",auth,async (req: Request, res:Response) => {
   const contentId = req.body.contentId
   await ContentModel.deleteOne({
-    contentId,
+    _id:contentId,
     userId:req.userId
   })
 
