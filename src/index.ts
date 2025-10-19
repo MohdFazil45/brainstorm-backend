@@ -12,7 +12,11 @@ import cors from "cors"
 const app = express()
 
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+  origin: "https://your-frontend.netlify.app", // Replace with your Netlify URL
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  credentials: true,
+}));
 
 app.post("/api/v1/signup",async (req, res)=> {
   const requiredBody = z.object({
