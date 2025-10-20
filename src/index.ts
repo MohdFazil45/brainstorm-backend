@@ -10,7 +10,7 @@ import { random } from './hashing.js'
 import cors from "cors"
 
 const JWT_SECRET = process.env.JWT_SECRET || "SECret";
-const PORT = process.env.PORT ? Number(process.env.PORT) : 3000;
+const PORT = process.env.PORT || 4000 
 
 console.log("Starting server...");
 console.log("PORT:", process.env.PORT);
