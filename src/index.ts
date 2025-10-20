@@ -12,13 +12,6 @@ import cors from "cors"
 const JWT_SECRET = process.env.JWT_SECRET || "SECret";
 const PORT = process.env.PORT || 3000 
 
-console.log("Starting server...");
-console.log("PORT:", process.env.PORT);
-console.log("MONGO_URL:", process.env.MONGO_URL ? "OK" : "MISSING");
-console.log("JWT_SECRET:", process.env.JWT_SECRET ? "OK" : "MISSING");
-
-
-
 const app = express()
 
 app.use(express.json())
@@ -214,4 +207,7 @@ app.get("/api/v1/brain/:shareLink",async (req: Request, res:Response)=>{
   })
 
 })
-app.listen(PORT)
+
+app.listen(Number(PORT), "0.0.0.0", () => {
+  console.log(`✅ Server running on port ${PORT}`);
+});
