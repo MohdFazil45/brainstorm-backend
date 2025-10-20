@@ -17,7 +17,7 @@ const app = express()
 app.use(express.json())
 
 app.use(cors({
-  origin: ["https://fazil-brainstorm.netlify.app","http://localhost:3000"],
+  origin: ["https://fazil-brainstorm.netlify.app","http://localhost:5173"],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
 }));
 
